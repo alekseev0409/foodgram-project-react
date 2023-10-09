@@ -7,8 +7,11 @@ app_name = "users"
 router = SimpleRouter()
 
 urlpatterns = [
-    path("users/subscriptions/", SubscribeView.as_view(), name="subscriptions"),
-    path("users/<int:user_id>/subscribe/", UserSubscribeView.as_view()),
+    path("users/subscriptions/",
+         SubscribeView.as_view(),
+         name="subscriptions"),
+    path("users/<int:user_id>/subscribe/",
+         UserSubscribeView.as_view()),
     path("", include("djoser.urls")),
     path("auth/", include("djoser.urls.authtoken")),
 ]
