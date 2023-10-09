@@ -250,14 +250,13 @@ class ShoppingListSerializer(FavoriteSerializer):
         model = ShoppingList
 
     def validate(self, data):
-        request = self.context.get('request')
-        recipe = data['recipe']
+        request = self.context.get("request")
+        recipe = data["recipe"]
         if not request or request.user.is_anonymous:
             return False
         if ShoppingList.objects.filter(
             recipe=recipe,
             user=request.user,
         ).exists():
-            raise serializers.ValidationError(
-                {'errors': 'Рецепт уже добавлен'})
+            raise serializers.ValidationError({"errors": "Рецепт уже добавлен"})
         return data

@@ -6,10 +6,11 @@ from rest_framework.validators import UniqueTogetherValidator
 
 from .models import Subscription
 
-from recipes.models import  Recipe
+from recipes.models import Recipe
 
 
 User = get_user_model()
+
 
 class ShowRecipeSerializers(serializers.ModelSerializer):
     class Meta:
@@ -20,6 +21,7 @@ class ShowRecipeSerializers(serializers.ModelSerializer):
             "image",
             "cooking_time",
         )
+
 
 class CustomUserSerializer(UserSerializer):
     is_subscribed = serializers.SerializerMethodField()
@@ -73,17 +75,19 @@ class SubscriptionShowSerializers(CustomUserSerializer):
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
-        fields = '__all__'
+        fields = "__all__"
 
     def validate(self, data):
-        if data['user'] == data['following']:
+        if data["user"] == data["following"]:
             raise ValidationError(
-                detail='Невозможно подписаться на себя!',
-                code=status.HTTP_400_BAD_REQUEST)
+                detail="Невозможно подписаться на себя!",
+                code=status.HTTP_400_BAD_REQUEST,
+            )
         if Subscription.objects.filter(
-                user=data['user'],
-                following=data['following']).exists():
+            user=data["user"], following=data["following"]
+        ).exists():
             raise ValidationError(
-                detail='Вы уже подписаны на этого пользователя!',
-                code=status.HTTP_400_BAD_REQUEST)
+                detail="Вы уже подписаны на этого пользователя!",
+                code=status.HTTP_400_BAD_REQUEST,
+            )
         return data

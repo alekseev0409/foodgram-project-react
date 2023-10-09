@@ -49,8 +49,8 @@ class UserSubscribeView(APIView):
         following = get_object_or_404(User, id=user_id)
         print(following)
         serializer = SubscriptionSerializer(
-            data={'user': request.user.id, 'following': following.id},
-            context={'request': request}
+            data={"user": request.user.id, "following": following.id},
+            context={"request": request},
         )
         serializer.is_valid(raise_exception=True)
 
@@ -59,13 +59,14 @@ class UserSubscribeView(APIView):
 
     def delete(self, request, user_id):
         following = get_object_or_404(User, id=user_id)
-        subscribe = Subscription.objects.filter(user=request.user,
-                                           following=following)
+        subscribe = Subscription.objects.filter(user=request.user, following=following)
         if not subscribe.exists():
             return Response(
-                {'errors': 'Вы не подписаны на этого пользователя'},
-                status=status.HTTP_400_BAD_REQUEST
+                {"errors": "Вы не подписаны на этого пользователя"},
+                status=status.HTTP_400_BAD_REQUEST,
             )
         subscribe.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 #

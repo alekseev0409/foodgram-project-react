@@ -1,5 +1,5 @@
 def table_recipes(ingredients):
-    str_ing = ('Ингредиенты |  Количество | Единицы измерения \n\n' )
+    str_ing = "Ингредиенты |  Количество | Единицы измерения \n\n"
     str_ing += "________________________________________________"
     for i in ingredients:
         str_ing += f"\n{i['ingredient__name']} | {i['amount__sum']} | {i['ingredient__measurement_unit']} \n"

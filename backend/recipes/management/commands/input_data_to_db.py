@@ -15,10 +15,7 @@ tag = [
 class Command(BaseCommand):
     def handle(self, *args, **options):
         Ingredient.objects.all().delete()
-        with open(
-            "/Users/anastasiamarockina/PycharmProjects/LL/food/backend/ingredients.json",
-            encoding="utf-8",
-        ) as file:
+        with open("./ingredients.json", encoding="utf-8") as file:
             reader = json.load(file)
             counter = 0
             for row in reader:
