@@ -157,7 +157,8 @@ class RecipeViewSet(ModelViewSet):
         ingredients = (
             IngredientInRecipe.objects.filter(
             recipe__shopping_list__user=user.id)
-            .values("ingredient__name", "ingredient__measurement_unit").annotate(Sum("amount"))
+            .values("ingredient__name", "ingredient__measurement_unit")
+            .annotate(Sum("amount"))
         )
         table = table_recipes(ingredients)
         response = HttpResponse(content_type="text/plain")
