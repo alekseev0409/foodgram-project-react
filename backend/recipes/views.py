@@ -156,7 +156,7 @@ class RecipeViewSet(ModelViewSet):
         filename = "ingredients.txt"
         ingredients = (
             IngredientInRecipe.objects.filter(
-            recipe__shopping_list__user=user.id)
+            recipe__shopping_list__user=user.id),
             .values("ingredient__name", "ingredient__measurement_unit")
             .annotate(Sum("amount"))
         )
