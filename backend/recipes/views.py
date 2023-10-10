@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
+
 from .utils import table_recipes
 from .paginations import CustomPagination
 from .filters import IngredientFilter, RecipeFilter
