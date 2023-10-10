@@ -30,6 +30,5 @@ class Command(BaseCommand):
                 slug=elem["slug"],
             )
         self.stdout.write(
-            self.style.SUCCESS(
-            f"В базу добавлено {counter} ингредиентов и теги")
+            self.style.SUCCESS(f"В базу добавлено {counter} ингредиентов и теги")
         )
