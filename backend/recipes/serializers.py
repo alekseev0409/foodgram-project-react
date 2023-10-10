@@ -129,7 +129,7 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         source="amount_ingredient",
     )
     tags = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(),
-                                               many=True)
+                                              many=True)
     image = Base64ImageField()
 
     class Meta:
@@ -191,7 +191,7 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         print(ingredients)
         for ingredient in ingredients:
             IngredientInRecipe.objects.update_or_create(
-                recipe=model,ingredient=ingredient.id,
+                recipe=model,ingredient=ingredient.id, 
                 amount=ingredient.amount
             )
         model.tags.set(tags)
@@ -231,7 +231,8 @@ class FavoriteSerializer(serializers.ModelSerializer):
         if not request or request.user.is_anonymous:
             return False
         if Favorite.objects.filter(recipe=recipe, user=request.user).exists():
-            raise serializers.ValidationError({"errors": "Рецепт уже добавлен"})
+            raise serializers.ValidationError(
+                {"errors": "Рецепт уже добавлен"})
         return data
 
     def to_representation(self, instance):
@@ -260,5 +261,6 @@ class ShoppingListSerializer(FavoriteSerializer):
             recipe=recipe,
             user=request.user,
         ).exists():
-            raise serializers.ValidationError({"errors": "Рецепт уже добавлен"})
+            raise serializers.ValidationError(
+                {"errors": "Рецепт уже добавлен"})
         return data
