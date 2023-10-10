@@ -59,7 +59,8 @@ class UserSubscribeView(APIView):
 
     def delete(self, request, user_id):
         following = get_object_or_404(User, id=user_id)
-        subscribe = Subscription.objects.filter(user=request.user, following=following)
+        subscribe = Subscription.objects.filter(user=request.user,
+                                                following=following)
         if not subscribe.exists():
             return Response(
                 {"errors": "Вы не подписаны на этого пользователя"},

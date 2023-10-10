@@ -9,13 +9,15 @@ class IngredientFilter(SearchFilter):
 
 
 class RecipeFilter(rest_framework_filter.FilterSet):
-    author = rest_framework_filter.ModelChoiceFilter(queryset=User.objects.all())
+    author = rest_framework_filter.ModelChoiceFilter(
+        queryset=User.objects.all())
     tags = rest_framework_filter.ModelMultipleChoiceFilter(
         field_name="tags__slug",
-        queryset=Tag.objects.all(),  # toDO
+        queryset=Tag.objects.all(),
         to_field_name="slug",
     )
-    is_favorited = rest_framework_filter.BooleanFilter(method="filter_is_favorited")
+    is_favorited = rest_framework_filter.BooleanFilter(
+        method="filter_is_favorited")
     is_in_shopping_cart = rest_framework_filter.BooleanFilter(
         method="filter_is_in_shopping_cart"
     )

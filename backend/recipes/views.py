@@ -5,7 +5,8 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
@@ -87,7 +88,8 @@ class RecipeViewSet(ModelViewSet):
             data_model.delete()
         else:
             return Response(
-                {"errors": "Отсутствует рецепт"}, status=status.HTTP_400_BAD_REQUEST
+                {"errors": "Отсутствует рецепт"},
+                status=status.HTTP_400_BAD_REQUEST
             )
 
     @action(
@@ -111,7 +113,9 @@ class RecipeViewSet(ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         if request.method == "DELETE":
             recipe = get_object_or_404(Recipe, id=pk)
-            get_object_or_404(Favorite, user=request.user, recipe=recipe).delete()
+            get_object_or_404(Favorite,
+                              user=request.user,
+                              recipe=recipe).delete()
             return Response(
                 {"detail": "Рецепт из избранного удален."},
                 status=status.HTTP_204_NO_CONTENT,
@@ -136,7 +140,9 @@ class RecipeViewSet(ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         if request.method == "DELETE":
             recipe = get_object_or_404(Recipe, id=pk)
-            get_object_or_404(ShoppingList, user=request.user, recipe=recipe).delete()
+            get_object_or_404(ShoppingList,
+                              user=request.user,
+                              recipe=recipe).delete()
             return Response(
                 {"detail": "Рецепт из избранного удален."},
                 status=status.HTTP_204_NO_CONTENT,
@@ -149,7 +155,8 @@ class RecipeViewSet(ModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         filename = "ingredients.txt"
         ingredients = (
-            IngredientInRecipe.objects.filter(recipe__shopping_list__user=user.id)
+            IngredientInRecipe.objects.filter(
+            recipe__shopping_list__user=user.id)
             .values("ingredient__name", "ingredient__measurement_unit")
             .annotate(Sum("amount"))
         )

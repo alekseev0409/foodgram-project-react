@@ -68,7 +68,8 @@ class SubscriptionShowSerializers(CustomUserSerializer):
         recipes = Recipe.objects.filter(author=obj).all()
         if limit:
             recipes = recipes[: (int(limit))]
-        srs = ShowRecipeSerializers(recipes, many=True, context={"request": request})
+        srs = ShowRecipeSerializers(recipes, many=True,
+                                    context={"request": request})
         return srs.data
 
 

@@ -80,7 +80,8 @@ class Recipe(models.Model):
         verbose_name="Ингредиенты",
     )
 
-    tags = models.ManyToManyField(Tag, verbose_name="Теги", related_name="recipes")
+    tags = models.ManyToManyField(Tag, verbose_name="Теги",
+                                  related_name="recipes")
 
     cooking_time = models.PositiveIntegerField(
         "Время приготовления",
@@ -130,7 +131,8 @@ class IngredientInRecipe(models.Model):
         verbose_name_plural = "Количество ингредиентов"
         constraints = [
             models.UniqueConstraint(
-                fields=("recipe", "ingredient"), name="unique_amount_ingredient"
+                fields=("recipe", "ingredient"),
+                name="unique_amount_ingredient"
             )
         ]
 
