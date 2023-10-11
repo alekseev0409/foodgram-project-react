@@ -6,6 +6,7 @@ from .models import Subscription
 User = get_user_model()
 
 
+@admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = (
         "id",
@@ -21,12 +22,9 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ("^email",)
 
 
+@admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ("user", "following")
     empty_value_display = "--None--"
     search_fields = ("user",)
     list_filter = ("user", "following")
-
-
-admin.site.register(User, UserAdmin)
-admin.site.register(Subscription, SubscriptionAdmin)

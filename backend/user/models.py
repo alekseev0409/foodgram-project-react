@@ -3,6 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
+    """Пользователи"""
     email = models.EmailField(
         "Электронная почта",
         max_length=254,
@@ -40,6 +41,7 @@ class User(AbstractUser):
 
 
 class Subscription(models.Model):
+    """Подписки"""
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

@@ -47,6 +47,27 @@ class CustomUserSerializer(UserSerializer):
             following=obj.id,
         ).exists()
 
+    def validate_username(self, username):
+        if username == 'me':
+            raise serializers.ValidationError(
+                'Пользователя с ником me нельзя создать',
+                code=status.HTTP_400_BAD_REQUEST
+            )
+        if User.objects.filter(username=username).exist():
+            raise serializers.ValidationError(
+                f'Пользователя с ником {username} уже создан',
+                code=status.HTTP_400_BAD_REQUEST
+            )
+        return username
+
+    def validate_email(self, email):
+        if User.objects.filter(email=email).exist():
+            raise serializers.ValidationError(
+                f'Пользователя с  почтой: {email} уже создан',
+                code=status.HTTP_400_BAD_REQUEST
+            )
+        return email
+
 
 class SubscriptionShowSerializers(CustomUserSerializer):
     recipes = serializers.SerializerMethodField(read_only=True)

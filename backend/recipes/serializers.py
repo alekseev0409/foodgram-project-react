@@ -161,17 +161,14 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         return tags
 
     def validate_ingredients(self, ingredients):
-        ingredients_list = []
         if not ingredients:
             raise serializers.ValidationError(
                 "Нет ингредиентов - нельзя добавить пустой рецепт!"
             )
-        for ingredient in ingredients:
-            if ingredient["id"] in ingredients_list:
-                raise serializers.ValidationError(
-                    "Все ингредиенты должны быть уникальными."
-                )
-            ingredients_list.append(ingredient["id"])
+        if len(ingredients) != len(set(ingredients)):
+            raise serializers.ValidationError(
+                "Все ингредиенты должны быть уникальными."
+            )
         return ingredients
 
     @staticmethod

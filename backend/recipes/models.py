@@ -7,9 +7,10 @@ User = get_user_model()
 
 
 class Tag(models.Model):
+    """Теги"""
     name = models.CharField(
         "Название тега",
-        max_length=30,
+        max_length=254,
         unique=True,
     )
 
@@ -20,7 +21,7 @@ class Tag(models.Model):
     slug = models.SlugField(
         "Адрес тега",
         unique=True,
-        max_length=100,
+        max_length=254,
     )
 
     class Meta:
@@ -33,14 +34,15 @@ class Tag(models.Model):
 
 
 class Ingredient(models.Model):
+    """Ингредиенты"""
     name = models.CharField(
         "Название ингредиента",
-        max_length=30,
+        max_length=254,
     )
 
     measurement_unit = models.CharField(
         "Единицы измерения для ингредиента",
-        max_length=50,
+        max_length=254,
     )
 
     class Meta:
@@ -53,6 +55,7 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
+    """Рецепты"""
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -61,7 +64,7 @@ class Recipe(models.Model):
 
     name = models.CharField(
         "Название рецепта",
-        max_length=50,
+        max_length=254,
     )
 
     image = models.ImageField(
@@ -102,16 +105,7 @@ class Recipe(models.Model):
 
 
 class IngredientInRecipe(models.Model):
-    amount = models.PositiveIntegerField(
-        verbose_name="Количество ингредиента",
-        validators=[
-            validators.MinValueValidator(
-                1,
-                message="Количество не может быть меньше 1",
-            )
-        ],
-    )
-
+    """Объединение Рецепты и Ингредиенты"""
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
@@ -124,6 +118,16 @@ class IngredientInRecipe(models.Model):
         on_delete=models.CASCADE,
         related_name="amount_ingredient",
         verbose_name="Рецепт",
+    )
+
+    amount = models.PositiveIntegerField(
+        verbose_name="Количество ингредиента",
+        validators=[
+            validators.MinValueValidator(
+                1,
+                message="Количество не может быть меньше 1",
+            )
+        ],
     )
 
     class Meta:
@@ -141,6 +145,7 @@ class IngredientInRecipe(models.Model):
 
 
 class ShoppingList(models.Model):
+    """Покупки"""
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -169,6 +174,7 @@ class ShoppingList(models.Model):
 
 
 class Favorite(models.Model):
+    """Избранное"""
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

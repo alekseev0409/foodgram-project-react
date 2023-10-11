@@ -11,17 +11,20 @@ from .models import (
 )
 
 
+@admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ("name", "measurement_unit")
     search_fields = ("name",)
     list_filter = ("name",)
 
 
+@admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ("name", "color", "slug")
     empty_value_display = "--None--"
 
 
+@admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     list_display = (
         "name",
@@ -45,23 +48,16 @@ class RecipeAdmin(admin.ModelAdmin):
         return obj.favorites_list.count()
 
 
+@admin.register(IngredientInRecipe)
 class IngredientInRecipeAdmin(admin.ModelAdmin):
     empty_value_display = "--None--"
 
 
+@admin.register(ShoppingList)
 class ShoppingListAdmin(admin.ModelAdmin):
     empty_value_display = "--None--"
 
 
+@admin.register(Favorite)
 class FavoritAdmin(admin.ModelAdmin):
     empty_value_display = "--None--"
-
-
-admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(Ingredient, IngredientAdmin)
-admin.site.register(Tag, TagAdmin)
-admin.site.register(IngredientInRecipe, IngredientInRecipeAdmin)
-admin.site.register(ShoppingList, ShoppingListAdmin)
-admin.site.register(Favorite, FavoritAdmin)
-
-admin.site.unregister(Group)
