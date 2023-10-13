@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
+from colorfield.fields import ColorField
 
 
 User = get_user_model()
@@ -14,7 +15,7 @@ class Tag(models.Model):
         unique=True,
     )
 
-    color = models.CharField(
+    color = ColorField(
         "Цвет тега (hex)", max_length=16, unique=True, default="#CD5C5C"
     )
 
@@ -97,6 +98,7 @@ class Recipe(models.Model):
     )
 
     class Meta:
+        ordering = ('-id',)
         verbose_name = "Рецепт"
         verbose_name_plural = "Рецепты"
 
@@ -109,14 +111,14 @@ class IngredientInRecipe(models.Model):
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
-        related_name="amount_ingredient",
+        related_name="amount_ingredients",
         verbose_name="Ингредиент",
     )
 
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        related_name="amount_ingredient",
+        related_name="amount_ingredients",
         verbose_name="Рецепт",
     )
 
@@ -149,14 +151,14 @@ class ShoppingList(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="shopping_list",
+        related_name="shopping_lists",
         verbose_name="Пользователь",
     )
 
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        related_name="shopping_list",
+        related_name="shopping_lists",
         verbose_name="Рецепт",
     )
 
@@ -178,14 +180,14 @@ class Favorite(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="favorites_list",
+        related_name="favorites_lists",
         verbose_name="Пользователь",
     )
 
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        related_name="favorites_list",
+        related_name="favorites_lists",
         verbose_name="Рецепт",
     )
 

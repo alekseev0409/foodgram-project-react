@@ -53,7 +53,6 @@ class RecipeViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = RecipeFilter
-    ordering = ("-id",)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

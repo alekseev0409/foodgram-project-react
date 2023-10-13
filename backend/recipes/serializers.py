@@ -185,7 +185,6 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
             )
 
     def add_tags_ingredients(self, ingredients, tags, model):
-        print(ingredients)
         for ingredient in ingredients:
             IngredientInRecipe.objects.update_or_create(
                 recipe=model, ingredient=ingredient.id,
