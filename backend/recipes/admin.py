@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.admin import Group
+
 
 from .models import (
     Ingredient,
@@ -10,7 +10,8 @@ from .models import (
     Favorite,
 )
 
-class  IngredientInRecipeInline(admin.TabularInline):
+
+class IngredientInRecipeInline(admin.TabularInline):
     model = IngredientInRecipe
     extra = 1
 
@@ -30,7 +31,7 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    inlines = ( IngredientInRecipeInline,)
+    inlines = (IngredientInRecipeInline,)
     list_display = (
         "name",
         "author",

@@ -29,7 +29,8 @@ SECRET_KEY = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", "127.0.0.1", "localhost", "lehakittygram.hopto.org", "158.160.79.51"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", ["*", "127.0.0.1", "localhost",
+                          "lehakittygram.hopto.org", "158.160.79.51"])
 
 
 # Application definition
@@ -94,8 +95,10 @@ DATABASES = {
 # Заготовка под постгресс
 # DATABASES = {
 #     'default': {
-#         'ENGINE': os.getenv('DB_ENGINE', default='django.db.backends.postgresql'),
-#         'NAME': os.getenv('DB_NAME', default='postgres'),
+#         'ENGINE':
+#           os.getenv('DB_ENGINE', default='django.db.backends.postgresql'),
+#         'NAME':
+#           os.getenv('DB_NAME', default='postgres'),
 #         'USER': os.getenv('DB_USER', default='postgres'),
 #         'PASSWORD': os.getenv('DB_PASSWORD', default='Spyderco8Cr13Mov'),
 #         'HOST': os.getenv('DB_HOST', default='db'),
@@ -106,18 +109,21 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+AUTH_PASSWORD_VALIDATORS = [{
+    "NAME":
+    "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME":
+        "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        "NAME":
+        "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME":
+        "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
