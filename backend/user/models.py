@@ -50,7 +50,7 @@ class Subscription(models.Model):
     following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="followings",
+        related_name="following",
     )
 
     class Meta:
@@ -58,7 +58,7 @@ class Subscription(models.Model):
         verbose_name_plural = "Подписки"
         constraints = [
             models.UniqueConstraint(
-                fields=["user", "followings"],
+                fields=["user", "following"],
                 name="unique_followers",
             ),
         ]
