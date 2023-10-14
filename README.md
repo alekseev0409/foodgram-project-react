@@ -57,3 +57,4 @@ leha123
 
 Приложение развернуто на http://lehakittygram.hopto.org
 Ссылка на django, admin - http://158.160.79.51/admin/
+#### ДЕДЛАЙН 15.10
