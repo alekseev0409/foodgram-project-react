@@ -150,12 +150,12 @@ class RecipeViewSet(ModelViewSet):
     @action(detail=False, permission_classes=(IsAuthenticated,))
     def download_shopping_cart(self, request):
         user = request.user
-        if not user.shopping_list.exists():
+        if not user.shopping_lists.exists():
             return Response(status=status.HTTP_400_BAD_REQUEST)
         filename = "ingredients.txt"
         ingredients = (
             IngredientInRecipe.objects
-            .filter(recipe__shopping_list__user=user.id)
+            .filter(recipe__shopping_lists__user=user.id)
             .values("ingredient__name", "ingredient__measurement_unit")
             .annotate(Sum("amount"))
         )

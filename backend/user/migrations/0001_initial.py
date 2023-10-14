@@ -55,6 +55,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='subscription',
-            constraint=models.UniqueConstraint(fields=('user', 'following'), name='unique_follower'),
+            constraint=models.UniqueConstraint(fields=('user', 'following'), name='unique_followers'),
         ),
     ]

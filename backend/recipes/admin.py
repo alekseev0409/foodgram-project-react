@@ -50,7 +50,7 @@ class RecipeAdmin(admin.ModelAdmin):
     readonly_fields = ("add_in_favorites",)
 
     def add_in_favorites(self, obj):
-        return obj.favorites_list.count()
+        return obj.favorites_lists.count()
 
 
 @admin.register(IngredientInRecipe)

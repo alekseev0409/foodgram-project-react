@@ -83,7 +83,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     ingredients = IngredientInRecipeSerializer(
         many=True,
         read_only=False,
-        source="amount_ingredient",
+        source="amount_ingredients",
     )
     tags = TagSerializer(
         read_only=True,
@@ -126,7 +126,7 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
     ingredients = CreateIngredientInRecipeSerializer(
         many=True,
         write_only=False,
-        source="amount_ingredient",
+        source="amount_ingredients",
     )
     tags = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(),
                                               many=True)
@@ -165,10 +165,10 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Нет ингредиентов - нельзя добавить пустой рецепт!"
             )
-        if len(ingredients) != len(set(ingredients)):
-            raise serializers.ValidationError(
-                "Все ингредиенты должны быть уникальными."
-            )
+        # if len(ingredients) != len(set(ingredients)):
+        #     raise serializers.ValidationError(
+        #         "Все ингредиенты должны быть уникальными."
+        #     )
         return ingredients
 
     @staticmethod
@@ -193,7 +193,7 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         model.tags.set(tags)
 
     def create(self, validated_data):
-        ingredients = validated_data.pop("amount_ingredient")
+        ingredients = validated_data.pop("amount_ingredients")
         tags = validated_data.pop("tags")
         recipe = Recipe.objects.create(**validated_data)
         self.add_ingredients(ingredients, recipe)
@@ -205,7 +205,7 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         instance.ingredients.clear()
         instance.tags.set(validated_data.pop("tags"))
         self.add_ingredients(
-            validated_data.pop("amount_ingredient"),
+            validated_data.pop("amount_ingredients"),
             instance,
         )
         return super().update(instance, validated_data)

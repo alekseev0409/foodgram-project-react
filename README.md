@@ -40,16 +40,20 @@ docker-compose up -d --build
 ```
 ##### Выполнить миграции:
 ```  
-docker-compose exec web python manage.py migrate  
+sudo docker-compose exec backend python manage.py migrate  
 ```  
-##### Cоздать суперпользователя:
-```
-docker-compose exec web python manage.py createsuperuser
-```
 ##### Собрать статику:
 ```
-docker-compose exec web python manage.py collectstatic --no-input
+sudo docker-compose exec backend manage.py collectstatic --no-input
 ```
-##### Адрес сайта:
-lehakittygram.hopto.org
+##### Cоздать суперпользователя:
+```
+sudo docker-compose exec backend python manage.py createsuperuser
+```
 
+Логин и пароль для админской части:
+gplenoniddym@mail.ru
+leha123
+
+Приложение развернуто на http://lehakittygram.hopto.org
+Ссылка на django, admin - http://158.160.79.51/admin/

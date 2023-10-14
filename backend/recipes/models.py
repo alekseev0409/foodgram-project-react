@@ -70,7 +70,7 @@ class Recipe(models.Model):
 
     image = models.ImageField(
         "Изображение к рецепту",
-        upload_to="recipes/images/",
+        upload_to="recipes/",
     )
 
     text = models.TextField(
@@ -138,7 +138,7 @@ class IngredientInRecipe(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=("recipe", "ingredient"),
-                name="unique_amount_ingredient"
+                name="unique_amount_ingredients"
             )
         ]
 
@@ -167,7 +167,7 @@ class ShoppingList(models.Model):
         verbose_name_plural = "Списки покупок"
         constraints = [
             models.UniqueConstraint(
-                fields=("user", "recipe"), name="unique_shopping_list"
+                fields=("user", "recipe"), name="unique_shopping_lists"
             )
         ]
 
@@ -196,7 +196,7 @@ class Favorite(models.Model):
         verbose_name_plural = "Избранные рецепты"
         constraints = [
             models.UniqueConstraint(
-                fields=("user", "recipe"), name="unique_favorites_list"
+                fields=("user", "recipe"), name="unique_favorites_lists"
             )
         ]
 
