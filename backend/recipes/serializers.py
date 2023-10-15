@@ -109,17 +109,11 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     def get_is_favorited(self, obj):
         user = self.context["request"].user.id
-        return Favorite.objects.filter(
-            recipe=obj.id,
-            user=user,
-        ).exists()
+        return obj.favorites_lists.filter(user=user).exists()
 
     def get_is_in_shopping_cart(self, obj):
         user = self.context["request"].user.id
-        return ShoppingList.objects.filter(
-            recipe=obj.id,
-            user=user,
-        ).exists()
+        return obj.shopping_lists.filter(user=user).exists()
 
 
 class RecipeCreateSerializer(serializers.ModelSerializer):
@@ -165,10 +159,10 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Нет ингредиентов - нельзя добавить пустой рецепт!"
             )
-        if len(ingredients) != len(set(ingredients)):
-            raise serializers.ValidationError(
-                "Все ингредиенты должны быть уникальными."
-            )
+        # if len(ingredients) != len(set(ingredients)):
+        #     raise serializers.ValidationError(
+        #         "Все ингредиенты должны быть уникальными."
+        #     )
         return ingredients
 
     @staticmethod

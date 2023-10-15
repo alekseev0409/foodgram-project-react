@@ -40,7 +40,7 @@ class SubscribeView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return User.objects.filter(
-            followings__user=user,
+            following__user=user,
         )
 
 
@@ -68,6 +68,3 @@ class UserSubscribeView(APIView):
             )
         subscribe.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-#
