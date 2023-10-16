@@ -49,7 +49,7 @@ class IngredientsViewSet(MainViewSet):
 
 class RecipeViewSet(ModelViewSet):
     queryset = Recipe.objects.select_related(
-        'author').prefetch_related('tags', 'ingredients').all()
+        'author').prefetch_related('tags', 'amount_ingredients').all()
     pagination_class = CustomPagination
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, OrderingFilter]
