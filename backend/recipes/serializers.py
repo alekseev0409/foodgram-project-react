@@ -159,10 +159,10 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Нет ингредиентов - нельзя добавить пустой рецепт!"
             )
-        if len(ingredients) != len(set(ingredients)):
-            raise serializers.ValidationError(
-                "Все ингредиенты должны быть уникальными."
-            )
+        # if len(ingredients) != len(set(ingredients)):
+        #     raise serializers.ValidationError(
+        #         "Все ингредиенты должны быть уникальными."
+        #     )
         return ingredients
 
     @staticmethod
