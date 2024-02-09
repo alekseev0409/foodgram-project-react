@@ -51,10 +51,5 @@ sudo docker-compose exec backend manage.py collectstatic --no-input
 sudo docker-compose exec backend python manage.py createsuperuser
 ```
 
-Логин и пароль для админской части:
-gplenoniddym@mail.ru
-leha123
 
-Приложение развернуто на http://lehakittygram.hopto.org
-Ссылка на django, admin - http://158.160.79.51/admin/
 #### ДЕДЛАЙН 15.10
